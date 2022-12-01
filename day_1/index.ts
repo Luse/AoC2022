@@ -1,28 +1,44 @@
-const file = await Deno.readTextFile("./input.txt")
+const file = await Deno.readTextFile("./input.txt");
 
 type resultObject = {
   [key: number]: string;
 };
 
-export const countCalories = (input: string) => {
+const setup = (input: string) => {
   const sections = input.split(/\r?\n/);
   let current = 0;
-  const ordered = sections.reduce((acc, val) => {
+  const parsed = sections.reduce((acc, val) => {
     if (val === "") {
       current = current + 1;
     } else {
-      acc[current as keyof resultObject] =
-        (parseInt(
-          acc[current as keyof resultObject]
-            ? acc[current as keyof resultObject]
-            : "0",
-        ) + parseInt(val)).toString();
+      acc[current as keyof resultObject] = (parseInt(
+        acc[current as keyof resultObject]
+          ? acc[current as keyof resultObject]
+          : "0",
+      ) + parseInt(val)).toString();
     }
 
     return acc;
   }, {} as resultObject);
-  const asNumberArray = Object.values(ordered).map(a => parseInt(a))
-  return Math.max(...asNumberArray).toString();
+  return Object.values(parsed).map((a) => parseInt(a));
 };
 
-console.log(countCalories(file))
+export const firstStar = (input: string) => {
+  const parsed = setup(input);
+
+  return Math.max(...parsed);
+};
+
+export const secondStar = (input: string) => {
+  const parsed = setup(input);
+  let total = 0;
+  const topThree = parsed.sort(function (a, b) {
+    return a - b;
+  }).reverse().slice(0, 3);
+
+  topThree.forEach((a) => total = total + a);
+  return total;
+};
+
+console.log("first ⭐: ", firstStar(file));
+console.log("second ⭐: ", secondStar(file));

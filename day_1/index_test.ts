@@ -1,7 +1,9 @@
-import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { countCalories } from "./index.ts";
+import {
+  assertEquals,
+} from "https://deno.land/std@0.167.0/testing/asserts.ts";
+import { firstStar, secondStar } from "./index.ts";
 
-Deno.test("should work", () => {
+Deno.test("first star", () => {
   const input = `1
 2
 3
@@ -11,6 +13,27 @@ Deno.test("should work", () => {
 4
 
 `;
-  const when = countCalories(input);
-  assertEquals(when, "9");
+  const when = firstStar(input);
+  assertEquals(when, 9);
+});
+Deno.test("second star", () => {
+  const input = `1
+2
+3
+
+2
+3
+4
+
+5
+6
+7
+
+8
+9
+10
+
+`;
+  const when = secondStar(input);
+  assertEquals(when, 54);
 });
