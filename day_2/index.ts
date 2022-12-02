@@ -3,6 +3,7 @@ const file = await Deno.readTextFile("./input.txt");
 type symbolValueObject = {
   type: string;
   value: number;
+  symbol: string;
 };
 
 enum Types {
@@ -20,18 +21,21 @@ const determineStringSymbolValue = (
       return {
         type: Types.ROCK,
         value: 1,
+        symbol: "✌",
       };
     case "B":
     case "Y":
       return {
         type: Types.PAPER,
         value: 2,
+        symbol: "✋",
       };
     case "C":
     case "Z":
       return {
         type: Types.SCISSORS,
         value: 3,
+        symbol: "✊",
       };
     default:
       return null;
@@ -44,8 +48,11 @@ export const determineOutcome = (input: string): number => {
   if (firstVal === null || secondVal === null) {
     return 0;
   }
+  console.log(
+    `${secondVal.type}(${secondVal.value}) vs ${firstVal.type}(${firstVal.value})`,
+  );
   if (secondVal.type === firstVal.type) {
-    return secondVal.value + firstVal.value;
+    return secondVal.value + 3
   }
 
   if (secondVal.type === Types.SCISSORS) {
@@ -82,6 +89,7 @@ export const firstStar = (file: string): number => {
       return;
     }
     const localSum = determineOutcome(a);
+    console.log("outcome: ", localSum);
     totalSum = totalSum + localSum;
   });
 
