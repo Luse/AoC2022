@@ -48,9 +48,6 @@ export const determineOutcome = (input: string): number => {
   if (firstVal === null || secondVal === null) {
     return 0;
   }
-  console.log(
-    `${secondVal.type}(${secondVal.value}) vs ${firstVal.type}(${firstVal.value})`,
-  );
   if (secondVal.type === firstVal.type) {
     return secondVal.value + 3
   }
@@ -89,7 +86,6 @@ export const firstStar = (file: string): number => {
       return;
     }
     const localSum = determineOutcome(a);
-    console.log("outcome: ", localSum);
     totalSum = totalSum + localSum;
   });
 
