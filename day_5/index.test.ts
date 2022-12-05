@@ -87,3 +87,14 @@ Deno.test("execute moves accoring to more complex instructions", () => {
     "[P]",
   ], ["-", "[M]", "[P]"]]);
 });
+Deno.test("execute moves and manage empty stacks", () => {
+  const initalStack = extractInitalStack(input);
+  const moves = [{ amount: 1, from: 2, to: 1 }, { amount: 3, from: 1, to: 3 }, { amount: 1, from: 3, to: 1 }];
+  const when = executeInstructions(initalStack, moves);
+  assertArrayIncludes(when, [["[Z]", "-", "-"], ["-", "-", "[N]"], [
+    "-",
+    "[M]",
+    "[P]",
+  ], ["-", "[M]", "[P]"]]);
+});
+
